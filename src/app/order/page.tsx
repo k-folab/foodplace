@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Navbar from "../components/home/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 import Image from "next/image";
 
 type CartItem = {
@@ -300,9 +301,7 @@ export default function OrderPage() {
                         );
                         return;
                       }
-                      alert(
-                        "Proceeding to checkout (demo). See console for details."
-                      );
+                      alert("Checkout is not yet available");
                       console.log({
                         cart,
                         subtotal,
@@ -327,10 +326,19 @@ export default function OrderPage() {
                   You can remove items using the Remove button.
                 </div>
               </div>
+              <div>
+                <a
+                  href="/menu"
+                  className="bg-orange-500 text-sm text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/40 active:scale-95"
+                >
+                  Back To Menu
+                </a>
+              </div>
             </div>
           </aside>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

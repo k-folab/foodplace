@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "../components/home/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -40,21 +41,21 @@ const riceDishes: Product[] = [
     id: "jollof-1",
     title: "Jollof Rice with Grilled Chicken",
     subtitle: "Spicy Jollof Rice served with perfectly grilled chicken",
-    image: "/homefood.jpg",
+    image: "/jollofrice.jpg",
     price: 2500,
   },
   {
     id: "fried-1",
     title: "Fried Rice",
-    subtitle: "Mixed veggies & chicken",
-    image: "/homefood.jpg",
+    subtitle: "Fried Rice with mixed veggies & Grilled chicken",
+    image: "/friedrice.jpg",
     price: 3000,
   },
   {
     id: "coconut-1",
     title: "Coconut Rice",
-    subtitle: "Coconut rice with veggies & chicken",
-    image: "/homefood.jpg",
+    subtitle: "Coconut Rice with mixed veggies & chicken",
+    image: "/coconutrice.jpg",
     price: 2000,
   },
 ];
@@ -161,7 +162,7 @@ export default function Menupage() {
                 </div>
                 <button
                   onClick={() => addToCartItem(p)}
-                  className="font-bold bg-orange-100 text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-200 transition"
+                  className="font-bold bg-orange-100 text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-200 transition active:scale-75"
                 >
                   Add to Cart
                 </button>
@@ -188,8 +189,9 @@ export default function Menupage() {
         </div>
 
         <div className="pb-5 max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold pt-8">All Dishes</h1>
+          <div className="flex items-center justify-between pt-8 mb-6">
+            <h1 className="text-3xl font-bold ">All Dishes</h1>
+
             <Link
               href="/order"
               className="bg-orange-500 text-sm text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/40 active:scale-95"
@@ -204,8 +206,17 @@ export default function Menupage() {
             {renderCategory("Soups", soups)}
             {renderCategory("Swallows", swallows)}
           </main>
+          <div className="p-8 ">
+            <Link
+              href="/order"
+              className="bg-orange-500 text-sm text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/40 active:scale-95"
+            >
+              View Order
+            </Link>
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

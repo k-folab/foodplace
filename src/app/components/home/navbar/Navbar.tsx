@@ -38,15 +38,19 @@ const Navbar = () => {
           </a>
           <a href="/order">
             <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
-              My Order
+              Order
             </li>
           </a>
-          <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
-            About Us
-          </li>
-          <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
-            Contact
-          </li>
+          <a href="/about">
+            <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+              About Us
+            </li>
+          </a>
+          <a href="/contact">
+            <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+              Contact
+            </li>
+          </a>
         </ul>
 
         {/* Desktop Search + Order Button */}
@@ -114,15 +118,19 @@ const Navbar = () => {
               </a>
               <a href="/order" onClick={() => setMenuOpen(false)}>
                 <li className="hover:text-orange-600 transition-colors duration-300">
-                  My Order
+                  Order
                 </li>
               </a>
-              <li className="hover:text-orange-600 transition-colors duration-300">
-                About Us
-              </li>
-              <li className="hover:text-orange-600 transition-colors duration-300">
-                Contact
-              </li>
+              <a href="/about" onClick={() => setMenuOpen(false)}>
+                <li className="hover:text-orange-600 transition-colors duration-300">
+                  About Us
+                </li>
+              </a>
+              <a href="/contact" onClick={() => setMenuOpen(false)}>
+                <li className="hover:text-orange-600 transition-colors duration-300">
+                  Contact
+                </li>
+              </a>
             </ul>
 
             <div className="pt-3 flex flex-col gap-3">
