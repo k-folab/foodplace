@@ -1,7 +1,9 @@
 "use client";
+import React from "react";
 import Navbar from "../components/home/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Image from "next/image";
+
 import Link from "next/link";
 
 type Product = {
@@ -16,23 +18,60 @@ const STORAGE_KEY = "foodplace_cart";
 
 function addToCartItem(item: Product) {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    console.log("addToCartItem called:", item);
+
+    const raw = (() => {
+      try {
+        return localStorage.getItem(STORAGE_KEY);
+      } catch (e) {
+        console.error("localStorage.getItem error", e);
+        return null;
+      }
+    })();
+
     const cart: (Product & { quantity?: number })[] = raw
       ? JSON.parse(raw)
       : [];
-    const idx = cart.findIndex((c) => c.id === item.id);
 
+    const idx = cart.findIndex((c) => c.id === item.id);
     if (idx > -1) {
       cart[idx].quantity = (cart[idx].quantity || 1) + 1;
     } else {
       cart.push({ ...item, quantity: 1 });
     }
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-    window.dispatchEvent(new Event("cart_updated"));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      console.log("Wrote cart to localStorage:", cart);
+    } catch (e) {
+      console.error("localStorage.setItem error", e);
+    }
+
+    // notify other parts of the app
+    try {
+      window.dispatchEvent(new Event("cart_updated"));
+    } catch (e) {
+      console.error("dispatchEvent error", e);
+    }
+
+    // optional tiny visual feedback (uncomment if you want)
+    // alert(`${item.title} added to cart`);
   } catch (err) {
     console.error("Error adding to cart:", err);
   }
+}
+
+// DEBUG helper: make it easy to test from console
+// (open devtools console and run: window.__testAdd && window.__testAdd())
+if (typeof window !== "undefined") {
+  // @ts-ignore
+  window.__testAdd = () =>
+    addToCartItem({
+      id: "debug-1",
+      title: "Debug Item",
+      price: 1,
+      image: "/placeholder.png",
+    });
 }
 
 /* --- Food Category Arrays --- */
@@ -65,21 +104,21 @@ const meats: Product[] = [
     id: "goat-1",
     title: "Goat Meat Pepper Soup",
     subtitle: "Delicious spicy goat meat pepper soup",
-    image: "/homefood.jpg",
+    image: "/goatsoup.webp",
     price: 2500,
   },
   {
     id: "suya-1",
     title: "Suya (Beef Skewers)",
     subtitle: "Tender grilled beef with pepper and spices",
-    image: "/homefood.jpg",
+    image: "/suya.jpg",
     price: 1800,
   },
   {
     id: "chicken-1",
     title: "Grilled Chicken",
     subtitle: "Juicy grilled chicken with sauce",
-    image: "/homefood.jpg",
+    image: "/grilledc.jpg",
     price: 2200,
   },
 ];
@@ -89,21 +128,21 @@ const soups: Product[] = [
     id: "egusi-1",
     title: "Egusi Soup",
     subtitle: "Thick melon seed soup with assorted meat",
-    image: "/homefood.jpg",
+    image: "/egusi.webp",
     price: 2000,
   },
   {
     id: "ogbono-1",
     title: "Ogbono Soup",
     subtitle: "Draw soup with assorted meat and fish",
-    image: "/homefood.jpg",
+    image: "/ogbono.jpg",
     price: 2300,
   },
   {
     id: "efo-1",
     title: "Efo Riro",
     subtitle: "Vegetable soup with fish and meat",
-    image: "/homefood.jpg",
+    image: "/efo.jpg",
     price: 2100,
   },
 ];
@@ -113,24 +152,45 @@ const swallows: Product[] = [
     id: "pounded-1",
     title: "Pounded Yam",
     subtitle: "Soft pounded yam, best served with soup",
-    image: "/homefood.jpg",
+    image: "/poundo.webp",
     price: 1500,
   },
   {
     id: "amala-1",
     title: "Amala",
     subtitle: "Yam flour swallow with ewedu and gbegiri",
-    image: "/homefood.jpg",
+    image: "/amala.jpg",
     price: 1500,
   },
   {
     id: "semo-1",
     title: "Semovita",
     subtitle: "Smooth semo served with any soup of choice",
-    image: "/homefood.jpg",
+    image: "/semo.jpg",
     price: 1400,
   },
 ];
+
+// const filteredRice = riceDishes.filter(
+//   (dish) =>
+//     dish.title.toLowerCase().includes(normalizedSearch) ||
+//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
+// );
+// const filteredMeats = meats.filter(
+//   (dish) =>
+//     dish.title.toLowerCase().includes(normalizedSearch) ||
+//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
+// );
+// const filteredSoups = soups.filter(
+//   (dish) =>
+//     dish.title.toLowerCase().includes(normalizedSearch) ||
+//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
+// );
+// const filteredSwallows = swallows.filter(
+//   (dish) =>
+//     dish.title.toLowerCase().includes(normalizedSearch) ||
+//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
+// );
 
 export default function Menupage() {
   const renderCategory = (title: string, items: Product[]) => (
@@ -162,7 +222,7 @@ export default function Menupage() {
                 </div>
                 <button
                   onClick={() => addToCartItem(p)}
-                  className="font-bold bg-orange-100 text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-200 transition active:scale-75"
+                  className="font-bold bg-orange-100 text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-200 transition active:scale-x-90"
                 >
                   Add to Cart
                 </button>
@@ -189,30 +249,31 @@ export default function Menupage() {
         </div>
 
         <div className="pb-5 max-w-6xl mx-auto">
-          <div className="flex items-center justify-between pt-8 mb-6">
+          <div className="flex items-center justify-between pt-8 pl-3 pr-3 mb-6">
             <h1 className="text-3xl font-bold ">All Dishes</h1>
 
-            <Link
-              href="/order"
-              className="bg-orange-500 text-sm text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/40 active:scale-95"
-            >
-              View Order
-            </Link>
+            <div className="sticky top-24 self-start">
+              <a
+                href="/order"
+                className="bg-orange-500 text-sm text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/40 active:scale-95"
+              >
+                View Order
+              </a>
+            </div>
           </div>
           <div className="w-[97%] mx-auto mt-3 border-b-2 border-orange-500"></div>
-          <main className="p-6 max-w-6xl mx-auto">
-            {renderCategory("Rice Dishes", riceDishes)}
-            {renderCategory("Meat Dishes", meats)}
-            {renderCategory("Soups", soups)}
-            {renderCategory("Swallows", swallows)}
-          </main>
+          {renderCategory("Rice Dishes", riceDishes)}
+          {renderCategory("Meat Dishes", meats)}
+          {renderCategory("Soups", soups)}
+          {renderCategory("Swallows", swallows)}
+
           <div className="p-8 ">
-            <Link
+            <a
               href="/order"
               className="bg-orange-500 text-sm text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/40 active:scale-95"
             >
               View Order
-            </Link>
+            </a>
           </div>
         </div>
       </div>

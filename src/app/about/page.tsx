@@ -22,16 +22,17 @@ const About = () => {
         />
         <div className="absolute inset-0 bg-black/50" />
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.2 }}
         >
-          <div className="absolute inset-0 flex flex-col gap-3 items-center justify-center text-white text-center px-4">
+          <div className="absolute inset-0 flex flex-col gap-3 items-center justify-center text-white text-center pt-12">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold">
               Our Story
             </h1>
             <div className="text-base md:text-lg lg:text-xl font-normal max-w-3xl">
-              Celebrating The Heart and Soul of Nigerian Cuisine
+              Celebrating The Heart and Soul of{" "}
+              <span className="text-orange-500">Nigerian</span> Cuisine
             </div>
           </div>
         </motion.div>
@@ -43,11 +44,13 @@ const About = () => {
         </div>
         <div className="pt-8 md:pt-12 text-gray-400 w-full md:w-4/5 lg:w-1/2 mx-auto text-sm md:text-base leading-relaxed">
           At Taste of Nigeria, our journey began with a simple yet profound love
-          for Nigerian cuisine. Founded by Chef Adunni, a passionate advocate
-          for authentic flavors, our mission is to bring the rich tapestry of
-          Nigerian dishes to your table. From the bustling markets of Lagos to
-          the serene landscapes of the countryside, we source the finest
-          ingredients to create meals that are both traditional and innovative.
+          for Nigerian cuisine. Founded by{" "}
+          <span className="text-orange-500 font-medium">Chef Adunni</span>, a
+          passionate advocate for authentic flavors, our mission is to bring the
+          rich tapestry of Nigerian dishes to your table. From the bustling
+          markets of Lagos to the serene landscapes of the countryside, we
+          source the finest ingredients to create meals that are both
+          traditional and innovative.
         </div>
       </div>
 
@@ -69,15 +72,36 @@ const About = () => {
         <div className="font-bold text-2xl md:text-4xl lg:text-4xl">
           Meet The Team Behind Olobe
         </div>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-6">
-          <div className="w-40 h-40 bg-gray-100 rounded-full flex items-center justify-center text-gray-600">
-            ori eyan
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-32 pt-6">
+          <div>
+            <div className="w-40 h-40 bg-gray-100 rounded-full border border-orange-500 flex items-center justify-center text-gray-600 overflow-hidden shadow-2xl">
+              <Image
+                src="/woman.jpg"
+                alt="Profile picture"
+                width={80}
+                height={80}
+                className="object-cover w-full h-full p-2"
+              />
+            </div>
+            <div className="pt-6 text-md ">Chef Adunni</div>
+            <div className="text-orange-500 text-sm">Founder $ Executive</div>
           </div>
-          <div className="w-40 h-40 bg-gray-100 rounded-full flex items-center justify-center text-gray-600">
-            Ori eyan
+          <div>
+            <div className="w-40 h-40 bg-gray-100 rounded-full border border-orange-500 flex items-center justify-center text-gray-600 overflow-hidden shadow-2xl">
+              <Image
+                src="/man.png"
+                alt="Profile picture"
+                width={80}
+                height={80}
+                className="object-cover w-full h-full p-2"
+              />
+            </div>
+            <div className="pt-6 text-md ">Chef Adebayo</div>
+            <div className="text-orange-500 text-sm">Head of Operations</div>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );

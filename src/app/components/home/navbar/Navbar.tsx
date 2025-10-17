@@ -2,12 +2,18 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import { Menu, X } from "lucide-react"; // Beautiful hamburger icons
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname(); // Get the current path
+
+  // Close the mobile menu when the route changes
+  React.useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 bg-gray-200 text-black font-poppins shadow-md">
@@ -27,27 +33,61 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <ul className="hidden md:flex text-gray-500 text-md font-medium gap-16">
           <a href="/">
-            <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+            <li
+              className={`${
+                pathname === "/"
+                  ? "text-orange-600"
+                  : "text-gray-500 hover:text-orange-600"
+              } active:text-orange-500 hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer`}
+            >
               Home
             </li>
           </a>
+
           <a href="/menu">
-            <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+            <li
+              className={`${
+                pathname === "/menu"
+                  ? "text-orange-600"
+                  : "text-gray-500 hover:text-orange-600"
+              } active:text-orange-500 hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer`}
+            >
               Menu
             </li>
           </a>
+
           <a href="/order">
-            <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+            <li
+              className={`${
+                pathname === "/order"
+                  ? "text-orange-600"
+                  : "text-gray-500 hover:text-orange-600"
+              } active:text-orange-500 hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer`}
+            >
               Order
             </li>
           </a>
+
           <a href="/about">
-            <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+            <li
+              className={`${
+                pathname === "/about"
+                  ? "text-orange-600"
+                  : "text-gray-500 hover:text-orange-600"
+              } active:text-orange-500 hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer`}
+            >
               About Us
             </li>
           </a>
+
           <a href="/contact">
-            <li className="hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+            <li
+              className={`${
+                pathname === "/contact"
+                  ? "text-orange-600"
+                  : "text-gray-500 hover:text-orange-600"
+              } hover:scale-110 hover:-translate-y-1 transition-transform duration-300 cursor-pointer`}
+            >
               Contact
             </li>
           </a>
@@ -61,11 +101,13 @@ const Navbar = () => {
         >
           <div className="hidden md:flex gap-4 items-center">
             <div className="flex rounded-full max-w-md mx-auto font-poppins">
-              <input
+              {/* <input
                 type="text"
                 placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="h-10 w-64 pr-8 pl-5 text-sm rounded shadow focus:shadow-md focus:outline-none"
-              />
+              /> */}
             </div>
 
             <a
@@ -105,40 +147,72 @@ const Navbar = () => {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="md:hidden bg-gray-100 px-6 pb-6 space-y-4 text-gray-700 shadow-inner"
           >
-            <ul className="flex flex-col gap-4 mt-2 text-base font-medium">
+            <ul className="flex flex-col gap-7 mt-2 text-base font-medium">
               <a href="/" onClick={() => setMenuOpen(false)}>
-                <li className="hover:text-orange-600 transition-colors duration-300">
+                <li
+                  className={`${
+                    pathname === "/"
+                      ? "text-orange-600"
+                      : "text-gray-500 hover:text-orange-600"
+                  } active:text-orange-500 hover:scale-90 hover:-translate-x-1 transition-transform duration-300 cursor-pointer`}
+                >
                   Home
                 </li>
               </a>
               <a href="/menu" onClick={() => setMenuOpen(false)}>
-                <li className="hover:text-orange-600 transition-colors duration-300">
+                <li
+                  className={`${
+                    pathname === "/menu"
+                      ? "text-orange-600"
+                      : "text-gray-500 hover:text-orange-600"
+                  } active:text-orange-500 hover:scale-90 hover:-translate-x-1 transition-transform duration-300 cursor-pointer`}
+                >
                   Menu
                 </li>
               </a>
               <a href="/order" onClick={() => setMenuOpen(false)}>
-                <li className="hover:text-orange-600 transition-colors duration-300">
+                <li
+                  className={`${
+                    pathname === "/order"
+                      ? "text-orange-600"
+                      : "text-gray-500 hover:text-orange-600"
+                  } active:text-orange-500 hover:scale-90 hover:-translate-x-1 transition-transform duration-300 cursor-pointer`}
+                >
                   Order
                 </li>
               </a>
               <a href="/about" onClick={() => setMenuOpen(false)}>
-                <li className="hover:text-orange-600 transition-colors duration-300">
+                <li
+                  className={`${
+                    pathname === "/about"
+                      ? "text-orange-600"
+                      : "text-gray-500 hover:text-orange-600"
+                  } active:text-orange-500 hover:scale-90 hover:-translate-x-1 transition-transform duration-300 cursor-pointer`}
+                >
                   About Us
                 </li>
               </a>
               <a href="/contact" onClick={() => setMenuOpen(false)}>
-                <li className="hover:text-orange-600 transition-colors duration-300">
+                <li
+                  className={`${
+                    pathname === "/contact"
+                      ? "text-orange-600"
+                      : "text-gray-500 hover:text-orange-600"
+                  } active:text-orange-500 hover:scale-90 hover:-translate-x-1 transition-transform duration-300 cursor-pointer`}
+                >
                   Contact
                 </li>
               </a>
             </ul>
 
             <div className="pt-3 flex flex-col gap-3">
-              <input
+              {/* <input
                 type="text"
                 placeholder="Search..."
-                className="h-10 w-full pr-8 pl-5 text-sm rounded shadow focus:shadow-md focus:outline-none"
-              />
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="h-10 w-64 pr-8 pl-5 text-sm rounded shadow focus:shadow-md focus:outline-none"
+              /> */}
               <a
                 href="/menu"
                 className="bg-orange-500 text-sm text-white text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 active:scale-95"

@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Navbar from "../components/home/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Image from "next/image";
+import { Trash, ShoppingCart } from "lucide-react";
 
 type CartItem = {
   id: string;
@@ -43,8 +44,32 @@ export default function OrderPage() {
   const [deliveryFee, setDeliveryFee] = useState(500); // example delivery fee (₦)
 
   useEffect(() => {
-    // load cart on mount (client)
-    setCart(readCart());
+    // sync function
+    const sync = () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        // ensure quantity default
+        const normalized = parsed.map((p: any) => ({ quantity: 1, ...p }));
+        setCart(normalized);
+        console.log("Order page synced cart:", normalized);
+      } catch (e) {
+        console.error("Order sync error", e);
+        setCart([]);
+      }
+    };
+
+    // initial load
+    sync();
+
+    // listeners for updates:
+    window.addEventListener("cart_updated", sync); // custom event from addToCartItem
+    window.addEventListener("storage", sync); // updates from other tabs/windows
+
+    return () => {
+      window.removeEventListener("cart_updated", sync);
+      window.removeEventListener("storage", sync);
+    };
   }, []);
 
   useEffect(() => {
@@ -111,8 +136,11 @@ export default function OrderPage() {
       <div className="max-w-6xl mx-auto px-4 pt-24">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold">Your Order</h1>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <div className="text-sm text-gray-600">Items in cart</div>
+            <div>
+              <ShoppingCart className="text-orange-400 w-5" />
+            </div>
             <div className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">
               {cart.length}
             </div>
@@ -201,7 +229,8 @@ export default function OrderPage() {
                             onClick={() => handleRemove(it.id)}
                             className="text-sm text-red-600 hover:underline"
                           >
-                            Remove
+                            Remove{" "}
+                            <Trash className="inline-block mb-1 w-5 h-5" />
                           </button>
                         </div>
                       </div>
@@ -245,6 +274,7 @@ export default function OrderPage() {
                 <div>
                   <label className="text-sm text-gray-600">Phone Number</label>
                   <input
+                    type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Enter your phone number"
@@ -253,14 +283,14 @@ export default function OrderPage() {
                 </div>
               </div>
 
-              <div className="mt-6 flex justify-end">
-                <button
+              {/* <div className="mt-6 flex justify-end">
+                <a
                   type="submit"
-                  className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition"
+                  className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition cursor-pointer"
                 >
                   Proceed to Checkout
-                </button>
-              </div>
+                </a>
+              </div> */}
             </form>
           </section>
 
@@ -288,40 +318,41 @@ export default function OrderPage() {
                 </div>
 
                 <div className="mt-4">
-                  <button
-                    onClick={() => {
-                      // quick checkout behavior
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+
                       if (cart.length === 0) {
                         alert("Your cart is empty.");
                         return;
                       }
-                      if (!deliveryAddress || !phone) {
+
+                      if (!deliveryAddress.trim() || !phone.trim()) {
                         alert(
-                          "Please fill delivery address and phone on the left."
+                          "Please fill in your delivery address and phone number before proceeding."
                         );
                         return;
                       }
-                      alert("Checkout is not yet available");
-                      console.log({
-                        cart,
-                        subtotal,
-                        deliveryFee,
-                        total,
-                        deliveryAddress,
-                        phone,
-                      });
+
+                      // ✅ Save details for checkout page
+                      localStorage.setItem("deliveryAddress", deliveryAddress);
+                      localStorage.setItem("phone", phone);
+
+                      // ✅ Redirect to checkout page
+                      window.location.href = "/checkout";
                     }}
-                    className="w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition"
+                    href="/menu"
+                    className="w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition cursor-pointer"
                   >
                     Proceed to Checkout
-                  </button>
+                  </a>
                 </div>
               </div>
 
               {/* small help card */}
               <div className="bg-white rounded-lg border border-gray-400 p-4 text-sm text-gray-600 shadow-sm">
                 <div className="font-medium mb-1">Need help?</div>
-                <div>Contact: +234 800 000 0000</div>
+                <div>Contact: +234 704 983 4715</div>
                 <div className="mt-2 text-xs text-gray-500">
                   You can remove items using the Remove button.
                 </div>

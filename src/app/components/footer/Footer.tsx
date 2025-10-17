@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const Footer = () => {
   return (
     <div className="bg-black p-5 text-sm mt-11 text-white">
-      <div className="flex justify-between">
-        <ul className="flex flex-col gap-4 mt-2 text-sm font-medium">
+      <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0 text-center md:text-left">
+        <ul className="flex flex-col gap-4 mt-2 text-base space-y-2 font-medium">
           <a href="/">
             <li className="hover:text-orange-600 transition-colors duration-300">
               Home
@@ -33,7 +34,7 @@ const Footer = () => {
             </li>
           </a>
         </ul>
-        <div className="space-y-3  text-gray-300">
+        <div className="space-y-3 pt-16 text-gray-300">
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{
@@ -45,8 +46,23 @@ const Footer = () => {
             <div className="text-white">Olobe</div>
           </motion.div>
 
-          <div>Designed and Developed by Kehinde Afolabi</div>
-          <div className=" ">© 2025. All rights reserved.</div>
+          <div>
+            Designed and Developed by{" "}
+            <span>
+              {" "}
+              <Link
+                href="https://www.linkedin.com/in/kehinde-afolabi-3bab072b2"
+                target="_blank"
+                className="hover:text-orange-300 text-orange-500"
+              >
+                Kehinde Afolabi
+              </Link>
+            </span>
+          </div>
+          <div className="flex justify-center gap-1">
+            <div>© {new Date().getFullYear()}. </div>
+            <div>All rights reserved.</div>
+          </div>
         </div>
       </div>
     </div>
