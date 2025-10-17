@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Navbar from "../components/home/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Image from "next/image";
@@ -164,6 +164,35 @@ const swallows: Product[] = [
 ];
 
 export default function Menupage() {
+  // Toast state
+  const [showToast, setShowToast] = useState(false);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clear timer on unmount
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
+
+  // handler that triggers addToCartItem + toast
+  const handleAddToCart = (item: Product) => {
+    addToCartItem(item);
+
+    // Reset any existing timer so repeated clicks restart the duration
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+
+    setShowToast(true);
+    toastTimerRef.current = setTimeout(() => {
+      setShowToast(false);
+      toastTimerRef.current = null;
+    }, 2000); // visible for 2 seconds
+  };
+
   const renderCategory = (title: string, items: Product[]) => (
     <section className="pt-10">
       <h2 className="text-2xl font-bold text-black mb-4">{title}</h2>
@@ -192,8 +221,8 @@ export default function Menupage() {
                   ₦{p.price}
                 </div>
                 <button
-                  onClick={() => addToCartItem(p)}
-                  className="font-bold bg-orange-100 text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-200 transition active:scale-x-90"
+                  onClick={() => handleAddToCart(p)}
+                  className="font-bold bg-orange-100 text-orange-600 px-4 py-2 rounded-lg hover:bg-orange-200 transition active:scale-95"
                 >
                   Add to Cart
                 </button>
@@ -209,6 +238,19 @@ export default function Menupage() {
     <div>
       <Navbar />
       <div className="font-poppins pt-24 bg-white">
+        <div
+          aria-hidden={!showToast}
+          className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 transform  transition-transform duration-300 ease-in-out ${
+            showToast
+              ? "translate-y-0 opacity-100"
+              : "-translate-y-24 opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="bg-orange-500 text-white px-5 py-2 rounded-lg shadow-lg">
+            Added to Cart
+          </div>
+        </div>
+
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
