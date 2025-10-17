@@ -93,7 +93,7 @@ export default function ContactPage() {
                 <input
                   name="from_name"
                   type="text"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
+                  className="w-full border text-black placeholder-gray-400 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
                   placeholder="Enter your name"
                 />
               </div>
@@ -105,7 +105,7 @@ export default function ContactPage() {
                 <input
                   name="from_email"
                   type="email"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
+                  className="w-full border text-black placeholder-gray-400 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
                   placeholder="Enter your email"
                 />
               </div>
@@ -117,7 +117,7 @@ export default function ContactPage() {
                 <input
                   name="phone"
                   type="tel"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
+                  className="w-full border text-black placeholder-gray-400 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
                   placeholder="Enter your phone number"
                   required
                 />
@@ -130,7 +130,7 @@ export default function ContactPage() {
                 <textarea
                   name="message"
                   rows={6}
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
+                  className="w-full border text-black placeholder-gray-400 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
                   placeholder="Enter your message"
                 ></textarea>
               </div>
@@ -222,7 +222,9 @@ export default function ContactPage() {
         </div>
 
         <div className="pt-28 text-center">
-          <div className="text-3xl font-bold">What Our Customers Say</div>
+          <div className="text-3xl font-bold text-black">
+            What Our Customers Say
+          </div>
           <div className="text-gray-500 text-sm pt-2">
             Real Reviews from our Amazing Customers
           </div>

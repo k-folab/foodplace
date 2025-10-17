@@ -122,7 +122,7 @@ export default function OrderPage() {
           transition={{ duration: 3 }}
         >
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold">Your Order</h1>
+            <h1 className="text-3xl font-bold text-black">Your Order</h1>
             <div className="flex items-center gap-2">
               <div className="text-sm text-gray-600">Items in cart</div>
               <div>
@@ -138,7 +138,7 @@ export default function OrderPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <section className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-lg border border-gray-400 p-6 shadow-sm">
-              <h2 className="font-semibold mb-4">Items in Cart</h2>
+              <h2 className="font-semibold mb-4 text-black">Items in Cart</h2>
 
               {cart.length === 0 ? (
                 <div className="text-center py-12 text-gray-500">
@@ -187,7 +187,7 @@ export default function OrderPage() {
                           </div>
                         </div>
 
-                        <div className="mt-3 flex items-center gap-3">
+                        <div className="mt-3 flex items-center text-black gap-3">
                           <div className="flex items-center border border-gray-400 rounded-md overflow-hidden">
                             <button
                               onClick={() =>
@@ -242,7 +242,9 @@ export default function OrderPage() {
               onSubmit={handleCheckout}
               className="bg-white rounded-lg border border-gray-400 p-6 shadow-sm"
             >
-              <h3 className="font-semibold mb-4">Delivery Details</h3>
+              <h3 className="font-semibold mb-4 text-black">
+                Delivery Details
+              </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -250,10 +252,11 @@ export default function OrderPage() {
                     Delivery Address
                   </label>
                   <input
+                    type="text"
                     value={deliveryAddress}
                     onChange={(e) => setDeliveryAddress(e.target.value)}
                     placeholder="Enter your full address"
-                    className="mt-1 w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
+                    className="mt-1 w-full border text-black border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300 placeholder-gray-400 "
                   />
                 </div>
 
@@ -264,7 +267,7 @@ export default function OrderPage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Enter your phone number"
-                    className="mt-1 w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300"
+                    className="mt-1 w-full border text-black border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-300 placeholder-gray-400"
                   />
                 </div>
               </div>
@@ -274,7 +277,7 @@ export default function OrderPage() {
           <aside className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
               <div className="bg-white rounded-lg border border-gray-400 p-6 shadow-sm">
-                <h3 className="font-semibold mb-3">Order Summary</h3>
+                <h3 className="font-semibold mb-3 text-black">Order Summary</h3>
 
                 <div className="flex justify-between text-sm text-gray-600 mb-2">
                   <span>Subtotal</span>
@@ -289,7 +292,7 @@ export default function OrderPage() {
                 <div className="border-t mt-3 pt-3 flex justify-between items-center">
                   <div>
                     <div className="text-sm text-gray-500">Total</div>
-                    <div className="text-xl font-bold">₦{total}</div>
+                    <div className="text-xl text-black font-bold">₦{total}</div>
                   </div>
                 </div>
 

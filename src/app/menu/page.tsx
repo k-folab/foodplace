@@ -208,14 +208,16 @@ export default function Menupage() {
   return (
     <div>
       <Navbar />
-      <div className="font-poppins pt-24">
+      <div className="font-poppins pt-24 bg-white">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 3 }}
         >
           <div className="text-center pt-10">
-            <div className="font-bold text-5xl">Our Delicious Menu</div>
+            <div className="font-bold text-5xl text-black">
+              Our Delicious Menu
+            </div>
             <div className="text-md text-gray-500 pt-3 mx-auto w-4/5 md:w-1/3">
               Discover the Rich Authentic flavors of{" "}
               <span className="text-orange-500">Nigeria</span>. Every dish is a
@@ -226,7 +228,7 @@ export default function Menupage() {
 
         <div className="pb-5 max-w-6xl mx-auto">
           <div className="flex items-center justify-between pt-8 px-5 mb-6">
-            <h1 className="text-3xl font-bold ">All Dishes</h1>
+            <h1 className="text-3xl font-bold text-black">Available Dishes</h1>
 
             <div className="sticky top-24 self-start">
               <a
