@@ -11,24 +11,12 @@ type CartItem = {
   id: string;
   title: string;
   subtitle?: string;
-  image?: string; // e.g. "/jollof.png"
+  image?: string;
   price: number;
   quantity?: number;
 };
 
 const STORAGE_KEY = "foodplace_cart";
-
-function readCart(): CartItem[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as CartItem[];
-    // ensure qty
-    return parsed.map((p) => ({ quantity: 1, ...p }));
-  } catch {
-    return [];
-  }
-}
 
 function writeCart(cart: CartItem[]) {
   try {
@@ -42,16 +30,15 @@ export default function OrderPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(500); // example delivery fee (₦)
+  const [deliveryFee] = useState(500);
 
   useEffect(() => {
-    // sync function
     const sync = () => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         const parsed = raw ? JSON.parse(raw) : [];
         // ensure quantity default
-        const normalized = parsed.map((p: any) => ({ quantity: 1, ...p }));
+        const normalized = parsed.map((p: CartItem) => ({ quantity: 1, ...p }));
         setCart(normalized);
         console.log("Order page synced cart:", normalized);
       } catch (e) {
@@ -60,10 +47,8 @@ export default function OrderPage() {
       }
     };
 
-    // initial load
     sync();
 
-    // listeners for updates:
     window.addEventListener("cart_updated", sync); // custom event from addToCartItem
     window.addEventListener("storage", sync); // updates from other tabs/windows
 
@@ -74,7 +59,6 @@ export default function OrderPage() {
   }, []);
 
   useEffect(() => {
-    // persist on cart change
     writeCart(cart);
   }, [cart]);
 
@@ -113,7 +97,6 @@ export default function OrderPage() {
       return;
     }
 
-    // example checkout action (replace with real checkout logic)
     const order = {
       cart,
       subtotal,
@@ -125,8 +108,6 @@ export default function OrderPage() {
     };
     console.log("Proceed to order:", order);
 
-    // optionally clear cart after ordering:
-    // setCart([]);
     alert("Order placed (demo). Check console for order object.");
   }
 
@@ -155,7 +136,6 @@ export default function OrderPage() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* LEFT: items list (2/3 width) */}
           <section className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-lg border border-gray-400 p-6 shadow-sm">
               <h2 className="font-semibold mb-4">Items in Cart</h2>
@@ -258,7 +238,6 @@ export default function OrderPage() {
               )}
             </div>
 
-            {/* Delivery details */}
             <form
               onSubmit={handleCheckout}
               className="bg-white rounded-lg border border-gray-400 p-6 shadow-sm"
@@ -289,19 +268,9 @@ export default function OrderPage() {
                   />
                 </div>
               </div>
-
-              {/* <div className="mt-6 flex justify-end">
-                <a
-                  type="submit"
-                  className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition cursor-pointer"
-                >
-                  Proceed to Checkout
-                </a>
-              </div> */}
             </form>
           </section>
 
-          {/* RIGHT: order summary (sticky) */}
           <aside className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
               <div className="bg-white rounded-lg border border-gray-400 p-6 shadow-sm">
@@ -341,11 +310,9 @@ export default function OrderPage() {
                         return;
                       }
 
-                      // ✅ Save details for checkout page
                       localStorage.setItem("deliveryAddress", deliveryAddress);
                       localStorage.setItem("phone", phone);
 
-                      // ✅ Redirect to checkout page
                       window.location.href = "/checkout";
                     }}
                     href="/menu"
@@ -356,7 +323,6 @@ export default function OrderPage() {
                 </div>
               </div>
 
-              {/* small help card */}
               <div className="bg-white rounded-lg border border-gray-400 p-4 text-sm text-gray-600 shadow-sm">
                 <div className="font-medium mb-1">Need help?</div>
                 <div>Contact: +234 704 983 4715</div>

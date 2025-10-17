@@ -3,9 +3,6 @@
 import React from "react"; // for React components
 import Image from "next/image"; // for optimized images
 import { motion } from "framer-motion";
-import hero from "public/homefood.png";
-import Link from "next/link"; // for navigation
-// import { motion } from "framer-motion"; // optional (for animations)
 
 const Home = () => {
   return (

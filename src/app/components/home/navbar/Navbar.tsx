@@ -3,14 +3,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-import { Menu, X } from "lucide-react"; // Beautiful hamburger icons
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname();
 
-  // Close the mobile menu when the route changes
   React.useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
@@ -30,9 +30,8 @@ const Navbar = () => {
           <div className="font-bold text-lg md:text-xl">Olobe</div>
         </motion.div>
 
-        {/* Desktop Menu */}
         <ul className="hidden md:flex text-gray-500 text-md font-medium gap-16">
-          <a href="/">
+          <Link href="/">
             <li
               className={`${
                 pathname === "/"
@@ -42,7 +41,7 @@ const Navbar = () => {
             >
               Home
             </li>
-          </a>
+          </Link>
 
           <a href="/menu">
             <li
@@ -93,22 +92,13 @@ const Navbar = () => {
           </a>
         </ul>
 
-        {/* Desktop Search + Order Button */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 3 }}
         >
           <div className="hidden md:flex gap-4 items-center">
-            <div className="flex rounded-full max-w-md mx-auto font-poppins">
-              {/* <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-10 w-64 pr-8 pl-5 text-sm rounded shadow focus:shadow-md focus:outline-none"
-              /> */}
-            </div>
+            <div className="flex rounded-full max-w-md mx-auto font-poppins"></div>
 
             <a
               href="/menu"
@@ -119,7 +109,6 @@ const Navbar = () => {
           </div>
         </motion.div>
 
-        {/* Hamburger (visible only on mobile) */}
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -137,7 +126,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -148,7 +136,7 @@ const Navbar = () => {
             className="md:hidden bg-gray-100 px-6 pb-6 space-y-4 text-gray-700 shadow-inner"
           >
             <ul className="flex flex-col gap-7 mt-2 pt-4 text-base font-medium">
-              <a href="/" onClick={() => setMenuOpen(false)}>
+              <Link href="/" onClick={() => setMenuOpen(false)}>
                 <li
                   className={`${
                     pathname === "/"
@@ -158,7 +146,7 @@ const Navbar = () => {
                 >
                   Home
                 </li>
-              </a>
+              </Link>
               <a href="/menu" onClick={() => setMenuOpen(false)}>
                 <li
                   className={`${
@@ -206,13 +194,6 @@ const Navbar = () => {
             </ul>
 
             <div className="pt-3 flex flex-col gap-3">
-              {/* <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-10 w-64 pr-8 pl-5 text-sm rounded shadow focus:shadow-md focus:outline-none"
-              /> */}
               <a
                 href="/menu"
                 className="bg-orange-500 text-sm text-white text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 active:scale-95"

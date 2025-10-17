@@ -5,8 +5,6 @@ import Footer from "../components/footer/Footer";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-import Link from "next/link";
-
 type Product = {
   id: string;
   title: string;
@@ -48,24 +46,18 @@ function addToCartItem(item: Product) {
       console.error("localStorage.setItem error", e);
     }
 
-    // notify other parts of the app
     try {
       window.dispatchEvent(new Event("cart_updated"));
     } catch (e) {
       console.error("dispatchEvent error", e);
     }
-
-    // optional tiny visual feedback (uncomment if you want)
-    // alert(`${item.title} added to cart`);
   } catch (err) {
     console.error("Error adding to cart:", err);
   }
 }
 
-// DEBUG helper: make it easy to test from console
-// (open devtools console and run: window.__testAdd && window.__testAdd())
 if (typeof window !== "undefined") {
-  // @ts-ignore
+  // @ts-expect-error: __testAdd is a custom global property for manual cart testing
   window.__testAdd = () =>
     addToCartItem({
       id: "debug-1",
@@ -75,7 +67,6 @@ if (typeof window !== "undefined") {
     });
 }
 
-/* --- Food Category Arrays --- */
 const riceDishes: Product[] = [
   {
     id: "jollof-1",
@@ -171,27 +162,6 @@ const swallows: Product[] = [
     price: 1400,
   },
 ];
-
-// const filteredRice = riceDishes.filter(
-//   (dish) =>
-//     dish.title.toLowerCase().includes(normalizedSearch) ||
-//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
-// );
-// const filteredMeats = meats.filter(
-//   (dish) =>
-//     dish.title.toLowerCase().includes(normalizedSearch) ||
-//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
-// );
-// const filteredSoups = soups.filter(
-//   (dish) =>
-//     dish.title.toLowerCase().includes(normalizedSearch) ||
-//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
-// );
-// const filteredSwallows = swallows.filter(
-//   (dish) =>
-//     dish.title.toLowerCase().includes(normalizedSearch) ||
-//     dish.subtitle?.toLowerCase().includes(normalizedSearch)
-// );
 
 export default function Menupage() {
   const renderCategory = (title: string, items: Product[]) => (

@@ -3,8 +3,6 @@ import React, { useEffect, useState, useMemo, useRef } from "react";
 import Navbar from "../components/home/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Image from "next/image";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 type CartItem = {
   id: string;
@@ -21,11 +19,10 @@ export default function CheckoutPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(500);
+  const [deliveryFee] = useState(500);
 
   const checkoutRef = useRef<HTMLDivElement>(null);
 
-  // Read cart + saved info
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
     const address = localStorage.getItem("deliveryAddress");
@@ -43,21 +40,6 @@ export default function CheckoutPage() {
 
   const total = useMemo(() => subtotal + deliveryFee, [subtotal, deliveryFee]);
 
-  //   const handleDownloadPDF = async () => {
-  //     if (!checkoutRef.current) return;
-  //     const canvas = await html2canvas(checkoutRef.current, {
-  //       useCORS: true,
-  //       backgroundColor: "#ffffff", // ensures background rendering
-  //       scale: 2, // sharper image
-  //     });
-  //     const imgData = canvas.toDataURL("image/png");
-  //     const pdf = new jsPDF("p", "mm", "a4");
-  //     const pdfWidth = pdf.internal.pageSize.getWidth();
-  //     const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-  //     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, imgHeight);
-  //     pdf.save("FoodPlace_Checkout.pdf");
-  //   };
-
   return (
     <main className="min-h-screen bg-gray-50 font-poppins">
       <Navbar />
@@ -72,7 +54,6 @@ export default function CheckoutPage() {
           </div>
         ) : (
           <>
-            {/* Cart Items */}
             <div className="bg-white border border-gray-300 rounded-lg p-6 shadow-sm mb-10">
               <h2 className="font-semibold text-lg mb-4 text-gray-800">
                 Your Order
@@ -113,7 +94,6 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Delivery Info */}
             <div className="bg-white border border-gray-300 rounded-lg p-6 shadow-sm mb-10">
               <h2 className="font-semibold text-xl mb-4 text-gray-800">
                 Delivery Details
@@ -134,7 +114,6 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Summary */}
             <div className="bg-white border border-gray-300 rounded-lg p-6 shadow-sm mb-10">
               <h2 className="font-semibold text-lg mb-4 text-gray-800">
                 Order Summary
@@ -155,7 +134,6 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Buttons */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-5">
               <a
                 href="/order"
@@ -170,13 +148,6 @@ export default function CheckoutPage() {
               >
                 Place Order
               </button>
-
-              {/* <button
-                onClick={handleDownloadPDF}
-                className=" bg-gray-300 text-gray-800 px-6 py-3 rounded-lg  hover:bg-gray-400 transition"
-              >
-                Download PDF
-              </button> */}
             </div>
           </>
         )}

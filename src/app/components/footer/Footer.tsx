@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 const Footer = () => {
@@ -8,11 +8,11 @@ const Footer = () => {
     <div className="bg-black p-5 text-sm mt-11 text-white">
       <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0 text-center md:text-left">
         <ul className="flex flex-col gap-4 mt-2 text-base space-y-2 font-medium">
-          <a href="/">
+          <Link href="/">
             <li className="hover:text-orange-600 transition-colors duration-300">
               Home
             </li>
-          </a>
+          </Link>
           <a href="/menu">
             <li className="hover:text-orange-600 transition-colors duration-300">
               Menu

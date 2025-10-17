@@ -1,20 +1,16 @@
 "use client";
 
-import React from "react"; // for React components
-import Image from "next/image"; // for optimized images
+import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Navbar from "../components/home/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-import hero from "public/homefood.png";
-import Link from "next/link"; // for navigation
-// import { motion } from "framer-motion"; // optional (for animations)
 
 const About = () => {
   return (
     <div>
       <Navbar />
       <div className="relative w-full h-screen font-poppins pt-28 md:pt-36">
-        {/* Background Image */}
         <Image
           src="/homefood.jpg"
           alt="homeimg"
@@ -22,10 +18,8 @@ const About = () => {
           className="object-cover"
         />
 
-        {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-black/50" />
 
-        {/* Centered Text with Motion */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -75,7 +69,7 @@ const About = () => {
             Our Philosophy
           </div>
           <div className="pt-8 md:pt-12 text-gray-400 w-full md:w-4/5 lg:w-1/2 mx-auto text-sm md:text-base leading-relaxed">
-            We believe that food is more than just sustenance; it's a
+            We believe that food is more than just sustenance; it is a
             celebration of culture, heritage, and community. Our dishes are
             prepared with time-honored techniques passed down through
             generations, ensuring that every bite is a taste of home. We are

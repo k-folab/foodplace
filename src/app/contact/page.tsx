@@ -80,8 +80,8 @@ export default function ContactPage() {
           {/* LEFT: Form */}
           <div className="bg-white rounded-xl shadow-2xl p-8">
             <p className="text-gray-600 mb-6 text-md">
-              We're here to assist you with any inquiries or feedback. Reach out
-              to us through the contact form or via the provided contact
+              We are here to assist you with any inquiries or feedback. Reach
+              out to us through the contact form or via the provided contact
               details.
             </p>
 
@@ -211,7 +211,6 @@ export default function ContactPage() {
             </div>
 
             <div className="bg-white rounded-xl shadow overflow-hidden">
-              {/* Google map iframe - change the q param to your exact address */}
               <iframe
                 title="Our location"
                 src="https://www.google.com/maps?q=Ikeja%20Lagos%20Nigeria&output=embed"
@@ -222,7 +221,6 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Testimonials Section - Placeholder for future content */}
         <div className="pt-28 text-center">
           <div className="text-3xl font-bold">What Our Customers Say</div>
           <div className="text-gray-500 text-sm pt-2">
@@ -306,7 +304,6 @@ export default function ContactPage() {
         </div>
 
         <div className="pt-12 flex items-center justify-center gap-6 text-gray-600">
-          {/* Instagram */}
           <Link
             href="https://www.instagram.com/_omokehinde._"
             target="_blank"
@@ -316,7 +313,6 @@ export default function ContactPage() {
             <Instagram size={24} />
           </Link>
 
-          {/* Twitter / X */}
           <Link
             href="https://x.com/Kehinde34345081"
             target="_blank"
@@ -326,7 +322,6 @@ export default function ContactPage() {
             <Twitter size={24} />
           </Link>
 
-          {/* LinkedIn */}
           <Link
             href="https://www.linkedin.com/in/kehinde-afolabi-3bab072b2"
             target="_blank"
