@@ -7,6 +7,7 @@ import Footer from "../components/footer/Footer";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Instagram, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -66,9 +67,15 @@ export default function ContactPage() {
       <Navbar />
 
       <main className="flex-1 bg-gray-50 py-12 px-4">
-        <h2 className="text-4xl font-bold text-black mb-2 pl-20">
-          Get in Touch
-        </h2>
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 3 }}
+        >
+          <h2 className="text-4xl font-bold text-black mb-2 pl-20">
+            Get in Touch
+          </h2>
+        </motion.div>
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* LEFT: Form */}
           <div className="bg-white rounded-xl shadow-2xl p-8">
@@ -225,56 +232,77 @@ export default function ContactPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12">
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
-                A
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                  A
+                </div>
+                <div className="ml-4">
+                  <h3 className="font-bold text-gray-800">Alvin Delio</h3>
+                  <p className="text-gray-500 text-sm">2023-09-15</p>
+                </div>
               </div>
-              <div className="ml-4">
-                <h3 className="font-bold text-gray-800">Alvin Delio</h3>
-                <p className="text-gray-500 text-sm">2023-09-15</p>
-              </div>
+              <p className="text-gray-700 italic">
+                The focus was absolutely delicious! I ordered the bulk filled
+                and was cooked to perfection. The flavor were authentic and the
+                service was excellent. Highly recommend!
+              </p>
             </div>
-            <p className="text-gray-700 italic">
-              The focus was absolutely delicious! I ordered the bulk filled and
-              was cooked to perfection. The flavor were authentic and the
-              service was excellent. Highly recommend!
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
-                C
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                  C
+                </div>
+                <div className="ml-4">
+                  <h3 className="font-bold text-gray-800">Chukwadi Okwo</h3>
+                  <p className="text-gray-500 text-sm">2023-09-22</p>
+                </div>
               </div>
-              <div className="ml-4">
-                <h3 className="font-bold text-gray-800">Chukwadi Okwo</h3>
-                <p className="text-gray-500 text-sm">2023-09-22</p>
-              </div>
+              <p className="text-gray-700 italic">
+                I enjoyed the variety of dishes offered. The legal document
+                featured full four items pointing a bit apart for the price.
+                Overall a good experience.
+              </p>
             </div>
-            <p className="text-gray-700 italic">
-              I enjoyed the variety of dishes offered. The legal document
-              featured full four items pointing a bit apart for the price.
-              Overall a good experience.
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
-                F
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                  F
+                </div>
+                <div className="ml-4">
+                  <h3 className="font-bold text-gray-800">Fatima Hasan</h3>
+                  <p className="text-gray-500 text-sm">2023-05-30</p>
+                </div>
               </div>
-              <div className="ml-4">
-                <h3 className="font-bold text-gray-800">Fatima Hasan</h3>
-                <p className="text-gray-500 text-sm">2023-05-30</p>
-              </div>
+              <p className="text-gray-700 italic">
+                Knowing food and grass service? I tried the big award
+                transmission facility. The staff was friendly and helpful. Will
+                definitely be ordering again.
+              </p>
             </div>
-            <p className="text-gray-700 italic">
-              Knowing food and grass service? I tried the big award transmission
-              facility. The staff was friendly and helpful. Will definitely be
-              ordering again.
-            </p>
-          </div>
+          </motion.div>
         </div>
 
         <div className="pt-12 flex items-center justify-center gap-6 text-gray-600">

@@ -62,7 +62,7 @@ export default function CheckoutPage() {
     <main className="min-h-screen bg-gray-50 font-poppins">
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 pt-24 pb-20" ref={checkoutRef}>
-        <h1 className="text-4xl font-bold mb-8 text-center text-orange-600">
+        <h1 className="text-4xl font-bold mb-8 text-center text-black">
           Checkout
         </h1>
 
@@ -115,19 +115,19 @@ export default function CheckoutPage() {
 
             {/* Delivery Info */}
             <div className="bg-white border border-gray-300 rounded-lg p-6 shadow-sm mb-10">
-              <h2 className="font-semibold text-lg mb-4 text-gray-800">
+              <h2 className="font-semibold text-xl mb-4 text-gray-800">
                 Delivery Details
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
                 <div>
-                  <span className="font-medium">Delivery Address:</span>
-                  <div className="   mt-2 ">
+                  <span className="font-medium ">Delivery Address:</span>
+                  <div className="   mt-2 text-orange-700">
                     {deliveryAddress || "No address provided"}
                   </div>
                 </div>
                 <div>
                   <span className="font-medium">Phone Number:</span>
-                  <div className="   mt-2 ">
+                  <div className="   mt-2 text-orange-700 ">
                     {phone || "No phone number provided"}
                   </div>
                 </div>

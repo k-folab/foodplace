@@ -5,6 +5,7 @@ import Navbar from "../components/home/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Image from "next/image";
 import { Trash, ShoppingCart } from "lucide-react";
+import { motion } from "framer-motion";
 
 type CartItem = {
   id: string;
@@ -134,18 +135,24 @@ export default function OrderPage() {
       <Navbar />
 
       <div className="max-w-6xl mx-auto px-4 pt-24">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold">Your Order</h1>
-          <div className="flex items-center gap-2">
-            <div className="text-sm text-gray-600">Items in cart</div>
-            <div>
-              <ShoppingCart className="text-orange-400 w-5" />
-            </div>
-            <div className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">
-              {cart.length}
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 3 }}
+        >
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-bold">Your Order</h1>
+            <div className="flex items-center gap-2">
+              <div className="text-sm text-gray-600">Items in cart</div>
+              <div>
+                <ShoppingCart className="text-orange-400 w-5" />
+              </div>
+              <div className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">
+                {cart.length}
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* LEFT: items list (2/3 width) */}

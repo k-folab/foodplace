@@ -3,6 +3,7 @@ import React from "react";
 import Navbar from "../components/home/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import Link from "next/link";
 
@@ -238,18 +239,23 @@ export default function Menupage() {
     <div>
       <Navbar />
       <div className="font-poppins pt-24">
-        <div className="text-center pt-10">
-          <div className="font-bold text-5xl">Our Delicious Menu</div>
-          <div className="text-md text-gray-500 pt-3">
-            Discover the Rich Authentic flavors of Nigeria. Every dish is a
-            story prepared
-            <br />
-            with love and the finest ingredients.
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 3 }}
+        >
+          <div className="text-center pt-10">
+            <div className="font-bold text-5xl">Our Delicious Menu</div>
+            <div className="text-md text-gray-500 pt-3 mx-auto w-4/5 md:w-1/3">
+              Discover the Rich Authentic flavors of{" "}
+              <span className="text-orange-500">Nigeria</span>. Every dish is a
+              story prepared with love and the finest ingredients.
+            </div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="pb-5 max-w-6xl mx-auto">
-          <div className="flex items-center justify-between pt-8 pl-3 pr-3 mb-6">
+          <div className="flex items-center justify-between pt-8 px-5 mb-6">
             <h1 className="text-3xl font-bold ">All Dishes</h1>
 
             <div className="sticky top-24 self-start">
@@ -262,11 +268,12 @@ export default function Menupage() {
             </div>
           </div>
           <div className="w-[97%] mx-auto mt-3 border-b-2 border-orange-500"></div>
-          {renderCategory("Rice Dishes", riceDishes)}
-          {renderCategory("Meat Dishes", meats)}
-          {renderCategory("Soups", soups)}
-          {renderCategory("Swallows", swallows)}
-
+          <div className="p-7 md:p-0">
+            {renderCategory("Rice Dishes", riceDishes)}
+            {renderCategory("Meat Dishes", meats)}
+            {renderCategory("Soups", soups)}
+            {renderCategory("Swallows", swallows)}
+          </div>
           <div className="p-8 ">
             <a
               href="/order"

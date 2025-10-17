@@ -147,7 +147,7 @@ const Navbar = () => {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="md:hidden bg-gray-100 px-6 pb-6 space-y-4 text-gray-700 shadow-inner"
           >
-            <ul className="flex flex-col gap-7 mt-2 text-base font-medium">
+            <ul className="flex flex-col gap-7 mt-2 pt-4 text-base font-medium">
               <a href="/" onClick={() => setMenuOpen(false)}>
                 <li
                   className={`${
